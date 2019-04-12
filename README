@@ -1,0 +1,60 @@
+	In fisierul function.h avem definite functiile:
+		
+number_to_char care transforma un numar intreg intr-un array char.
+Split care va despartii cuvintele din buffer in functie de caracterul " " si le va pune intr-un vector.
+	
+	In fisierul erori.h avem:
+
+Clasa Client pe care o vom folosi pentru a crea o instanta a fiecarui client din fisier.
+Pe langa cele 6 campuri ale clientului avem si contoarele logat si blocat (0 = nelogat/neblocat 1 = logat/blocat).
+Functiile de erori care returneaza 1 daca au gasit eroare respectiva si 0 in caz contrar.
+	
+	Login
+	
+Clientul citeste de la tastatura comanda si o trimite la server.
+Daca avem o sesiune deschisa pe client se afiseaza codul de eroare -2 si nu se trimite comanda la server.
+Serverul verifica daca exista eroare daca nu userul respectiv se logheaza la client (logat = 1).
+Trimite inapoi la client mesajul "Welcome nume prenume" sau mesajul de eroare.
+Daca am primit eroare -3 creste nrIncercari (daca a ajuns la 3 cardul userului se blocheaza).
+Retinem numarul cardului care s a logat sau a incercat sa se logheze.
+Daca incearca alt user sa se logheze se resteaza nrIncercari.
+Daca s-a logat cineva nrIncercari se reseteaza si avem o sesiune deschisa pe client.
+
+	Logout
+
+Clientul citeste de la tastatura comanda si o trimite la server.	
+Inainte de a o trimite la server daca am citit comanda logout, listsold sau transfer se verifica mai intai daca avem o sesiune deschisa.
+Daca nu se afiseaza codul de eroare -1 si nu se mai trimite comanda la server.
+La server userul respectiv se delogheaza (logat = 0).
+Se trimite inapoi la client mesajul "Clientul a fost deconectat".
+
+	Listsold
+
+Clientul citeste de la tastatura comanda si o trimite la server.
+Serverul trimite inapoi la client un mesaj cu soldul acestuia.
+
+	Transfer
+	
+Clientul citeste de la tastatura comanda si o trimite la server.
+Serverul verifica daca exista eroare, daca nu se trimite inapoi la client mesajul (Transfer suma catre nume prenume? [y/n]).
+Clientul citeste raspunsul si trimite la server mesajul (Raspuns: [y/n]).
+Daca serverul a primit y se realizeaza transferul banilor si trimite la client mesajul (Transfer realizat cu succes).
+Daca a primit altceva se trimite la client eroare -9.
+
+	Unlock
+	
+Clientul citeste de la tastatura comanda si o trimite la server.
+Serverul verifica daca exista eroare, daca nu se trimite inapoi la client mesajul (Trimite parola secreta).
+Clientul citeste de la tastatura parola si o trimite la server.
+Serverul verifica daca parola secreta este corecta.
+Daca da se deblocheaza userul (blocat = 0).
+Daca nu se trimite codul de eroare -7.
+
+	Quit
+	
+Clientul citeste de la tastatura comanda si o trimite la server.
+Serverul scoate din vectorul de clienti clientul respectiv.
+Se inchid conexiunile TCP si UDP ale clientului.
+
+Daca serverul a citit comanda quit acesta scoate din multimea de citire socketul fiecarui client.
+Se inchid conexiunele TCP si UDP din server.
